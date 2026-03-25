@@ -11,11 +11,11 @@ def extract_text_from_pdf(file_path: str) -> str:
 def extract_text_from_docx(file_path: str) -> str:
     document = Document(file_path)
 
-    fullText = []
+    full_text = []
     for para in document.paragraphs:
-        fullText.append(para.text)
-    return "\n".join(fullText)
-    pass
+        if para.text.strip():
+            full_text.append(para.text.strip())
+    return "\n".join(full_text)
 
 
 def extract_text(file_path: str) -> str:
@@ -29,7 +29,7 @@ def extract_text(file_path: str) -> str:
     elif ext == ".docx":
         return extract_text_from_docx(file_path)
     else:
-        raise ValueError("Unsupported file type")
+        raise ValueError("Unsupported file type: {ext}")
 
 
 # text = extract_text("mypdf.pdf")
