@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 import os
 from services.text_extractor import extract_text
+from services.resume_parser import parse_resume_text
 
 app = FastAPI()
 
@@ -57,4 +58,10 @@ async def parse_resume(file: UploadFile = File(...)):
 
     extracted_text = extract_text(file_path)
 
-    return {"filename": file.filename, "text_preview": extracted_text[:500]}
+    parsed_data = parse_resume_text(extracted_text)
+
+    return {
+        "filename": file.filename,
+        "parsed_data": parsed_data,
+        "text_preview": extracted_text[:500],
+    }
