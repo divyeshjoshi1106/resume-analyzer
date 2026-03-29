@@ -1,16 +1,5 @@
 import re
-import json
-import os
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # services/
-BACKEND_DIR = os.path.dirname(BASE_DIR)  # backend/
-
-skills_path = os.path.join(BACKEND_DIR, "app", "data", "skills.json")
-
-with open(skills_path, "r") as f:
-    data = json.load(f)
-
-SKILLS = data["skills"]
+from services.skill_extractor import extract_skills
 
 
 def extract_email(text):
@@ -70,22 +59,11 @@ def extract_name(text: str):
     return None
 
 
-def extract_skills(text: str, skills_list: list):
-    text_lower = text.lower()
-    found_skills = []
-
-    for skill in skills_list:
-        if skill in text_lower:
-            found_skills.append(skill)
-
-    return list(set(found_skills))
-
-
 def parse_resume_text(text: str) -> dict:
     return {
         "name": extract_name(text),
         "emails": extract_email(text),
         "phones": extract_phone(text),
         "links": extract_links(text),
-        "skills": extract_skills(text, SKILLS),
+        "skills": extract_skills(text),
     }

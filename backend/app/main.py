@@ -61,7 +61,5 @@ async def parse_resume(file: UploadFile = File(...)):
     parsed_data = parse_resume_text(extracted_text)
 
     return {
-        "filename": file.filename,
         "parsed_data": parsed_data,
-        "text_preview": extracted_text[:500],
     }

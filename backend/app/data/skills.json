@@ -1,51 +1,533 @@
 {
-  "skills": [
+  "python": [
     "python",
-    "java",
-    "c++",
+    "py"
+  ],
+  "java": [
+    "java"
+  ],
+  "javascript": [
     "javascript",
+    "js"
+  ],
+  "typescript": [
     "typescript",
-    "go",
-    "rust",
-    "react",
-    "angular",
-    "vue",
-    "nodejs",
-    "express",
-    "fastapi",
-    "django",
-    "spring",
-    "html",
-    "css",
-    "tailwind",
-    "bootstrap",
-    "docker",
-    "kubernetes",
-    "aws",
-    "azure",
-    "gcp",
-    "git",
-    "github",
-    "gitlab",
-    "sql",
-    "mysql",
-    "postgresql",
-    "mongodb",
-    "redis",
-    "tensorflow",
-    "pytorch",
-    "scikit-learn",
-    "pandas",
-    "numpy",
-    "linux",
+    "ts"
+  ],
+  "c": [
+    "c language"
+  ],
+  "c++": [
+    "c++",
+    "cpp"
+  ],
+  "c#": [
+    "c#",
+    "csharp",
+    ".net",
+    "dotnet"
+  ],
+  "go": [ 
+  "golang", 
+  "go language"
+  ], 
+  "rust": [
+    "rust"
+  ],
+  "php": [
+    "php"
+  ],
+  "ruby": [
+    "ruby"
+  ],
+  "swift": [
+    "swift"
+  ],
+  "kotlin": [
+    "kotlin"
+  ],
+  "scala": [
+    "scala"
+  ],
+  "r": [
+    "r language",
+    "r programming"
+  ],
+  "matlab": [
+    "matlab"
+  ],
+  "perl": [
+    "perl"
+  ],
+  "shell": [
+    "shell",
     "bash",
-    "ci/cd",
-    "jenkins",
+    "shell scripting",
+    "bash scripting"
+  ],
+  "powershell": [
+    "powershell"
+  ],
+  "html": [
+    "html",
+    "html5"
+  ],
+  "css": [
+    "css",
+    "css3"
+  ],
+  "sass": [
+    "sass",
+    "scss"
+  ],
+  "less": [
+    "less"
+  ],
+  "bootstrap": [
+    "bootstrap"
+  ],
+  "tailwind css": [
+    "tailwind",
+    "tailwindcss",
+    "tailwind css"
+  ],
+  "material ui": [
+    "material ui",
+    "mui"
+  ],
+  "jquery": [
+    "jquery"
+  ],
+  "react": [
+    "react",
+    "react.js",
+    "reactjs"
+  ],
+  "next.js": [
+    "next",
+    "next.js",
+    "nextjs"
+  ],
+  "vue.js": [
+    "vue",
+    "vue.js",
+    "vuejs"
+  ],
+  "nuxt.js": [
+    "nuxt",
+    "nuxt.js",
+    "nuxtjs"
+  ],
+  "angular": [
+    "angular",
+    "angularjs"
+  ],
+  "svelte": [
+    "svelte"
+  ],
+  "redux": [
+    "redux"
+  ],
+  "state": [
+    "state"
+  ],
+  "node.js": [
+    "node",
+    "node.js",
+    "nodejs"
+  ],
+  "express.js": [
+    "express",
+    "express.js",
+    "expressjs"
+  ],
+  "nestjs": [
+    "nestjs",
+    "nest.js",
+    "nest"
+  ],
+  "fastapi": [
+    "fastapi"
+  ],
+  "django": [
+    "django"
+  ],
+  "flask": [
+    "flask"
+  ],
+  "spring boot": [
+    "spring",
+    "spring boot",
+    "springboot"
+  ],
+  "hibernate": [
+    "hibernate"
+  ],
+  "asp.net": [
+    "asp.net",
+    "aspnet"
+  ],
+  "laravel": [
+    "laravel"
+  ],
+  "symfony": [
+    "symfony"
+  ],
+  "ruby on rails": [
+    "rails",
+    "ruby on rails"
+  ],
+  "gin": [
+    "gin",
+    "gin gonic"
+  ],
+  "fiber": [
+    "fiber",
+    "gofiber"
+  ],
+  "graphql": [
+    "graphql"
+  ],
+  "rest api": [
     "rest",
-    "graphql",
+    "rest api",
+    "restful api",
+    "restful services"
+  ],
+  "sql": [
+    "sql"
+  ],
+  "mysql": [
+    "mysql"
+  ],
+  "postgresql": [
+    "postgresql",
+    "postgres",
+    "psql"
+  ],
+  "sqlite": [
+    "sqlite",
+    "sqlite3"
+  ],
+  "microsoft sql server": [
+    "sql server",
+    "mssql",
+    "ms sql server",
+    "microsoft sql server"
+  ],
+  "oracle database": [
+    "oracle",
+    "oracle db",
+    "oracle database"
+  ],
+  "mongodb": [
+    "mongodb",
+    "mongo",
+    "mongo db"
+  ],
+  "redis": [
+    "redis"
+  ],
+  "cassandra": [
+    "cassandra"
+  ],
+  "dynamodb": [
+    "dynamodb"
+  ],
+  "elasticsearch": [
+    "elasticsearch",
+    "elastic search",
+    "elastic"
+  ],
+  "firebase": [
+    "firebase",
+    "firestore"
+  ],
+  "neo4j": [
+    "neo4j"
+  ],
+  "aws": [
+    "aws",
+    "amazon web services"
+  ],
+  "azure": [
+    "azure",
+    "microsoft azure"
+  ],
+  "gcp": [
+    "gcp",
+    "google cloud",
+    "google cloud platform"
+  ],
+  "ec2": [
+    "ec2",
+    "amazon ec2"
+  ],
+  "s3": [
+    "s3",
+    "amazon s3"
+  ],
+  "lambda": [
+    "lambda",
+    "aws lambda"
+  ],
+  "rds": [
+    "rds",
+    "amazon rds"
+  ],
+  "cloudwatch": [
+    "cloudwatch",
+    "aws cloudwatch"
+  ],
+  "iam": [
+    "iam",
+    "aws iam"
+  ],
+  "api gateway": [
+    "api gateway",
+    "aws api gateway"
+  ],
+  "azure functions": [
+    "azure functions"
+  ],
+  "azure devops": [
+    "azure devops"
+  ],
+  "azure container registry": [
+    "acr",
+    "azure container registry"
+  ],
+  "azure container instances": [
+    "aci",
+    "azure container instances"
+  ],
+  "azure kubernetes service": [
+    "aks",
+    "azure kubernetes service"
+  ],
+  "google kubernetes engine": [
+    "gke",
+    "google kubernetes engine"
+  ],
+  "cloud run": [
+    "cloud run",
+    "google cloud run"
+  ],
+  "docker": [
+    "docker"
+  ],
+  "docker compose": [
+    "docker compose",
+    "docker-compose"
+  ],
+  "kubernetes": [
+    "kubernetes",
+    "k8s"
+  ],
+  "helm": [
+    "helm"
+  ],
+  "terraform": [
+    "terraform"
+  ],
+  "ansible": [
+    "ansible"
+  ],
+  "jenkins": [
+    "jenkins"
+  ],
+  "github actions": [
+    "github actions"
+  ],
+  "gitlab ci/cd": [
+    "gitlab ci",
+    "gitlab ci/cd",
+    "gitlab pipelines"
+  ],
+  "ci/cd": [
+    "ci/cd",
+    "cicd",
+    "continuous integration",
+    "continuous deployment",
+    "continuous delivery"
+  ],
+  "linux": [
+    "linux",
+    "unix"
+  ],
+  "nginx": [
+    "nginx"
+  ],
+  "apache": [
+    "apache",
+    "apache http server"
+  ],
+  "prometheus": [
+    "prometheus"
+  ],
+  "grafana": [
+    "grafana"
+  ],
+  "elk stack": [
+    "elk",
+    "elk stack",
+    "elasticsearch logstash kibana"
+  ],
+  "splunk": [
+    "splunk"
+  ],
+  "rabbitmq": [
+    "rabbitmq"
+  ],
+  "kafka": [
+    "kafka",
+    "apache kafka"
+  ],
+  "git": [
+    "git"
+  ],
+  "github": [
+    "github"
+  ],
+  "gitlab": [
+    "gitlab"
+  ],
+  "bitbucket": [
+    "bitbucket"
+  ],
+  "jira": [
+    "jira"
+  ],
+  "confluence": [
+    "confluence"
+  ],
+  "postman": [
+    "postman"
+  ],
+  "swagger": [
+    "swagger",
+    "openapi"
+  ],
+  "selenium": [
+    "selenium"
+  ],
+  "playwright": [
+    "playwright"
+  ],
+  "cypress": [
+    "cypress"
+  ],
+  "jest": [
+    "jest"
+  ],
+  "pytest": [
+    "pytest"
+  ],
+  "junit": [
+    "junit"
+  ],
+  "maven": [
+    "maven",
+    "apache maven"
+  ],
+  "gradle": [
+    "gradle"
+  ],
+  "npm": [
+    "npm"
+  ],
+  "yarn": [
+    "yarn"
+  ],
+  "pnpm": [
+    "pnpm"
+  ],
+  "pandas": [
+    "pandas"
+  ],
+  "numpy": [
+    "numpy"
+  ],
+  "scikit-learn": [
+    "scikit-learn",
+    "sklearn"
+  ],
+  "tensorflow": [
+    "tensorflow",
+    "tf"
+  ],
+  "pytorch": [
+    "pytorch",
+    "torch"
+  ],
+  "keras": [
+    "keras"
+  ],
+  "opencv": [
+    "opencv"
+  ],
+  "nltk": [
+    "nltk"
+  ],
+  "spacy": [
+    "spacy"
+  ],
+  "xgboost": [
+    "xgboost"
+  ],
+  "matplotlib": [
+    "matplotlib"
+  ],
+  "seaborn": [
+    "seaborn"
+  ],
+  "jupyter": [
+    "jupyter",
+    "jupyter notebook"
+  ],
+  "microservices": [
     "microservices",
+    "microservice architecture"
+  ],
+  "oop": [
     "oop",
+    "object oriented programming",
+    "object-oriented programming"
+  ],
+  "data structures": [
     "data structures",
-    "algorithms"
+    "data structure"
+  ],
+  "algorithms": [
+    "algorithms",
+    "algorithm design"
+  ],
+  "design patterns": [
+    "design patterns",
+    "software design patterns"
+  ],
+  "system design": [
+    "system design"
+  ],
+  "agile": [
+    "agile",
+    "scrum"
+  ],
+  "test automation": [
+    "test automation",
+    "automated testing"
+  ],
+  "unit testing": [
+    "unit testing",
+    "unit tests"
+  ],
+  "integration testing": [
+    "integration testing",
+    "integration tests"
+  ],
+  "tdd": [
+    "tdd",
+    "test driven development",
+    "test-driven development"
   ]
 }
