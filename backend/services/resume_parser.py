@@ -10,8 +10,27 @@ def extract_email(text):
 
 def extract_phone(text):
     pattern = r"[\+\(]?[1-9][0-9 .\-\(\)]{8,}[0-9]"
-    phone_numbers = re.findall(pattern, text)
-    return list(set(num.strip() for num in phone_numbers))
+    matches = re.findall(pattern, text)
+
+    phone_numbers = []
+
+    for num in matches:
+        cleaned = num.strip()
+
+        # Remove common separators for checking
+        digits_only = re.sub(r"[^\d]", "", cleaned)
+
+        # Filter out dates like YYYY-MM-DD (exactly 8 digits often)
+        if re.match(r"\d{4}[-./]\d{2}[-./]\d{2}", cleaned):
+            continue
+
+        # Filter out short numeric patterns (like dates)
+        if len(digits_only) < 9:
+            continue
+
+        phone_numbers.append(cleaned)
+
+    return list(set(phone_numbers))
 
 
 def extract_links(text):
