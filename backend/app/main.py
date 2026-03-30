@@ -1,7 +1,8 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 import os
 from services.text_extractor import extract_text
 from services.resume_parser import parse_resume_text
+from services.skill_extractor import extract_skills
 
 app = FastAPI()
 
@@ -63,3 +64,29 @@ async def parse_resume(file: UploadFile = File(...)):
     return {
         "parsed_data": parsed_data,
     }
+
+
+@app.post("/analyze_resume")
+async def analyze_resume(
+    file: UploadFile = File(...), job_description: str = Form(...)
+):
+    if file.content_type not in ALLOWED_TYPES:
+        raise HTTPException(
+            status_code=400, detail="Only PDF and DOCX files are allowed"
+        )
+
+    content = await file.read()
+
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    print(file_path)
+
+    with open(file_path, "wb") as f:
+        f.write(content)
+
+    extracted_text = extract_text(file_path)
+
+    parsed_data = parse_resume_text(extracted_text)
+
+    job_details = extract_skills(job_description)
+
+    return {"parsed_data": parsed_data, "job_details": job_details}
