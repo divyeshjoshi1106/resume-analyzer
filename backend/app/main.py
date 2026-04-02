@@ -3,6 +3,7 @@ import os
 from services.text_extractor import extract_text
 from services.resume_parser import parse_resume_text
 from services.skill_extractor import extract_skills
+from services.matcher import compare_skills
 
 app = FastAPI()
 
@@ -89,4 +90,12 @@ async def analyze_resume(
 
     job_details = extract_skills(job_description)
 
-    return {"parsed_data": parsed_data, "job_details": job_details}
+    resume_skills = parsed_data.get("skills", [])
+
+    skill_comparison = compare_skills(resume_skills, job_details)
+
+    return {
+        "parsed_data": parsed_data,
+        "job_details": job_details,
+        "skill comparsion": skill_comparison,
+    }
