@@ -33,12 +33,56 @@ def extract_phone(text):
     return list(set(phone_numbers))
 
 
-def extract_links(text):
+""" def extract_links(text):
     pattern = (
         r"https?://(?:[a-zA-Z0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
     )
     urls = re.findall(pattern, text)
-    return list(set(urls))
+    return list(set(urls)) """
+
+
+def extract_links(text):
+
+    pattern = r"(?<!@)\b(?:https?://|www\.)?(?:[a-z0-9-]+\.)+[a-z]{2,}(?:/[^\s,()<>]+)?"
+
+    found_urls = re.findall(pattern, text, re.IGNORECASE)
+
+    # 1. Common Tech skills that use dots (The "False Positives")
+    skill_blacklist = {
+        "next.js",
+        "node.js",
+        "react.js",
+        "vue.js",
+        "express.js",
+        "three.js",
+        "socket.io",
+        "d3.js",
+        "backbone.js",
+        "ember.js",
+    }
+
+    cleaned_links = []
+    for url in found_urls:
+        # Clean trailing punctuation
+        url = url.rstrip(".,!?:;")
+
+        # Split by '/' to check the main "domain" part (e.g., 'Next.js' from 'Next.js/TypeScript')
+        base_part = url.split("/")[0].lower()
+
+        # 2. FILTERING LOGIC
+        # Skip if the base domain is a known skill
+        if base_part in skill_blacklist:
+            continue
+
+        # Skip common file extensions if they appear as naked domains (e.g., 'script.py')
+        if re.search(r"\.(py|js|cpp|java|sh|html|css|json)$", url.lower()):
+            # Only skip if it's NOT a full URL (no http/www)
+            if not url.lower().startswith(("http", "www")):
+                continue
+
+        cleaned_links.append(url)
+
+    return list(set(cleaned_links))
 
 
 def extract_name(text: str):
