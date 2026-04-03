@@ -6,3 +6,11 @@ def compare_skills(resume_skills: list[str], job_skills: list[str]):
         "extra_skills": list(set(resume_skills) - set(job_skills)),
     }
     return skills_dict
+
+
+def calculate_match_score(matched_skills: list[str], job_skills: list[str]):
+    try:
+        match_score = round((len(matched_skills) / len(job_skills)) * 100, 2)
+    except ZeroDivisionError:
+        match_score = 0
+    return match_score
