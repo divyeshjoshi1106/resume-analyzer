@@ -42,12 +42,15 @@ def extract_phone(text):
 
 
 def extract_links(text):
-
+    # Regex for naked domains, http/s, and common paths
     pattern = r"(?<!@)\b(?:https?://|www\.)?(?:[a-z0-9-]+\.)+[a-z]{2,}(?:/[^\s,()<>]+)?"
 
     found_urls = re.findall(pattern, text, re.IGNORECASE)
 
-    # 1. Common Tech skills that use dots (The "False Positives")
+    # 1. Academic/Degree False Positives
+    degree_noise = {"m.tech", "b.tech", "b.sc", "m.sc", "b.a", "m.a", "ph.d"}
+
+    # 2. Tech Skill False Positives
     skill_blacklist = {
         "next.js",
         "node.js",
@@ -58,25 +61,22 @@ def extract_links(text):
         "socket.io",
         "d3.js",
         "backbone.js",
-        "ember.js",
     }
 
     cleaned_links = []
     for url in found_urls:
-        # Clean trailing punctuation
         url = url.rstrip(".,!?:;")
 
-        # Split by '/' to check the main "domain" part (e.g., 'Next.js' from 'Next.js/TypeScript')
+        # Split to check the "base" part (before a slash)
         base_part = url.split("/")[0].lower()
 
-        # 2. FILTERING LOGIC
-        # Skip if the base domain is a known skill
-        if base_part in skill_blacklist:
+        # FILTERING LOGIC
+        # Skip if it's a degree (m.tech) or a known skill (next.js)
+        if base_part in degree_noise or base_part in skill_blacklist:
             continue
 
-        # Skip common file extensions if they appear as naked domains (e.g., 'script.py')
+        # Extension Guard: Ignore file names like 'main.py' if no http/www is present
         if re.search(r"\.(py|js|cpp|java|sh|html|css|json)$", url.lower()):
-            # Only skip if it's NOT a full URL (no http/www)
             if not url.lower().startswith(("http", "www")):
                 continue
 

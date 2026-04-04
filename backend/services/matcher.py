@@ -5,6 +5,10 @@ def compare_skills(resume_skills: list[str], job_skills: list[str]):
         "missing_skills": list(set(job_skills) - set(resume_skills)),
         "extra_skills": list(set(resume_skills) - set(job_skills)),
     }
+
+    for skill_list in skills_dict.values():
+        skill_list.sort()
+
     return skills_dict
 
 

@@ -99,6 +99,6 @@ async def analyze_resume(
     return {
         "parsed_data": parsed_data,
         "job_details": job_details,
-        "skill_comparsion": skill_comparison,
+        "skill_comparison": skill_comparison,
         "match_score": match_score,
     }
