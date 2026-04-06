@@ -162,7 +162,7 @@ def extract_skills(text: str):
             if alias_lower in UNSAFE_SHORT_ALIASES:
                 continue
 
-            pattern = r"(?<!\w)" + re.escape(alias.lower()) + r"(?!\w)"
+            pattern = r"(?<!\w)" + re.escape(alias_lower) + r"(?!\w)"
             if re.search(pattern, text_lower):
                 found_skills.append(skill)
                 break  # stop checking aliases once matched
