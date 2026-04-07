@@ -12,8 +12,8 @@ def format_skill_list(skills):
 def generate_suggestions(
     parsed_data, job_details, skill_comparison, match_score
 ) -> dict:
-    matched = skill_comparison.get("matched_skills", [])[:5]
-    missing = skill_comparison.get("missing_skills", [])[:5]
+    matched = skill_comparison.get("matched_skills", [])
+    missing = skill_comparison.get("missing_skills", [])
 
     if match_score <= 30:
         summary = "This resume currently has a low match with the job requirements."
