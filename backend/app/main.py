@@ -5,7 +5,7 @@ from services.resume_parser import parse_resume_text
 from services.skill_extractor import extract_skills
 from services.matcher import compare_skills, calculate_match_score
 from services.suggester import generate_suggestions
-from services.skill_categorizer import categorize_skills
+from services.skill_categorizer import categorize_skills, build_category_match_summary
 
 app = FastAPI()
 
@@ -102,6 +102,10 @@ async def analyze_resume(
 
     match_score = calculate_match_score(skill_comparison["matched_skills"], job_details)
 
+    match_summary = build_category_match_summary(
+        job_skills_groups, resume_skills_groups
+    )
+
     suggestions = generate_suggestions(
         parsed_data, job_details, skill_comparison, match_score
     )
@@ -114,4 +118,5 @@ async def analyze_resume(
         "suggestions": suggestions,
         "job_skills_groups": job_skills_groups,
         "resume_skills_groups": resume_skills_groups,
+        "match_summary": match_summary,
     }

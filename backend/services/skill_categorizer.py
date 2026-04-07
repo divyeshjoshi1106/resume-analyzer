@@ -24,3 +24,22 @@ def categorize_skills(skills: list[str]):
         if not found:
             result["other"].append(skill)
     return dict(result)
+
+
+def build_category_match_summary(job_skills_groups, resume_skills_groups):
+    category_match = {}
+
+    for category, category_skills in job_skills_groups.items():
+        required_skills = category_skills
+        resume_skills = resume_skills_groups.get(category, [])
+
+        match_count = len(
+            set(s.lower() for s in resume_skills)
+            & set(s.lower() for s in required_skills)
+        )
+
+        required_count = len(required_skills)
+
+        category_match[category] = {"matched": match_count, "required": required_count}
+
+    return category_match
