@@ -1,3 +1,12 @@
+CATEGORY_WEIGHTS = {
+    "devops": 0.4,
+    "cloud": 0.3,
+    "tools_collaboration": 0.1,
+    "backend": 0.2,
+    "data_ai": 0.1,
+}
+
+
 def compare_skills(resume_skills: list[str], job_skills: list[str]):
 
     skills_dict = {
@@ -18,3 +27,28 @@ def calculate_match_score(matched_skills: list[str], job_skills: list[str]):
     except ZeroDivisionError:
         match_score = 0
     return match_score
+
+
+def calculate_weighted_match_score(match_summary: dict):
+    weighted_sum = 0
+    used_weight_sum = 0
+    for category, category_data in match_summary.items():
+        if category not in CATEGORY_WEIGHTS:
+            continue
+
+        matched = category_data["matched"]
+        required = category_data["required"]
+
+        if required == 0:
+            continue
+
+        ratio = matched / required
+        weight = CATEGORY_WEIGHTS[category]
+
+        weighted_sum += ratio * weight
+        used_weight_sum += weight
+
+    if used_weight_sum == 0:
+        return 0.0
+
+    return round((weighted_sum / used_weight_sum) * 100, 2)

@@ -3,7 +3,11 @@ import os
 from services.text_extractor import extract_text
 from services.resume_parser import parse_resume_text
 from services.skill_extractor import extract_skills
-from services.matcher import compare_skills, calculate_match_score
+from services.matcher import (
+    compare_skills,
+    calculate_match_score,
+    calculate_weighted_match_score,
+)
 from services.suggester import generate_suggestions
 from services.skill_categorizer import categorize_skills, build_category_match_summary
 
@@ -109,6 +113,7 @@ async def analyze_resume(
     suggestions = generate_suggestions(
         parsed_data, job_details, skill_comparison, match_score
     )
+    weighted_match_score = calculate_weighted_match_score(match_summary)
 
     return {
         "parsed_data": parsed_data,
@@ -119,4 +124,5 @@ async def analyze_resume(
         "job_skills_groups": job_skills_groups,
         "resume_skills_groups": resume_skills_groups,
         "match_summary": match_summary,
+        "weighted_match_score": weighted_match_score,
     }
