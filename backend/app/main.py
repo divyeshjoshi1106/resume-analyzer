@@ -111,7 +111,12 @@ async def analyze_resume(
     )
 
     suggestions = generate_suggestions(
-        parsed_data, job_details, skill_comparison, match_score
+        parsed_data,
+        job_details,
+        skill_comparison,
+        match_score,
+        match_summary,
+        job_skills_groups,
     )
     weighted_match_score = calculate_weighted_match_score(match_summary)
 

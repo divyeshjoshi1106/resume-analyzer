@@ -10,7 +10,12 @@ def format_skill_list(skills):
 
 
 def generate_suggestions(
-    parsed_data, job_details, skill_comparison, match_score
+    parsed_data,
+    job_details,
+    skill_comparison,
+    match_score,
+    match_summary,
+    job_skills_groups,
 ) -> dict:
     matched = skill_comparison.get("matched_skills", [])
     missing = skill_comparison.get("missing_skills", [])
@@ -37,10 +42,66 @@ def generate_suggestions(
     else:
         improvements = "Your resume covers most of the required skills."
 
+    category_feedback = generate_category_feedback(
+        match_summary, job_skills_groups, missing
+    )
+
     return {
         "summary": summary,
         "strengths": strengths,
         "improvements": improvements,
         "highlight_advice": highlight_advice,
         "score_feedback": score_feedback,
+        "category_feedback": category_feedback,
     }
+
+
+# TODO
+def generate_category_feedback(match_summary, job_skills_groups, missing_skills):
+    best_category = None
+    best_missing_skills = []
+    highest_missing_count = 0
+    for category, category_data in match_summary.items():
+        matched = category_data["matched"]
+        required = category_data["required"]
+
+        missing_count = required - matched
+
+        if missing_count <= 0:
+            continue
+
+        category_job_skills = job_skills_groups.get(category, [])
+
+        missing_in_this_category = []
+
+        for skill in category_job_skills:
+            if skill in missing_skills:
+                missing_in_this_category.append(skill)
+
+        if len(missing_in_this_category) > highest_missing_count:
+            best_category = category
+            best_missing_skills = missing_in_this_category
+            highest_missing_count = len(missing_in_this_category)
+
+    if best_category is None:
+        return (
+            "Your profile aligns reasonably well across the main required categories."
+        )
+
+    category_display = format_category_name(best_category)
+
+    if best_missing_skills:
+        return f"The biggest gap is in {category_display}-related skills, especially {format_skill_list(best_missing_skills)}."
+    else:
+        return f"The biggest gap is in {category_display}-related skills."
+
+
+def format_category_name(category):
+    if category == "devops":
+        return "DevOps"
+    elif category == "tools_collaboration":
+        return "tools and collaboration"
+    elif category == "data_ai":
+        return "data and AI"
+    else:
+        return category.replace("_", " ")
