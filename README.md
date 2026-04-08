@@ -1,54 +1,84 @@
-# Resume Analyzer
+# 📄 Resume Analyzer API
 
-## Project Overview
+An AI-inspired backend system that analyzes resumes against job descriptions and provides actionable insights.
 
-**Resume Analyzer** is a backend-driven application that analyzes resumes against job descriptions to evaluate how well a candidate’s profile matches a specific role.
-
-The system allows users to upload a resume file (PDF or DOCX) and compare it with a given job description. Using Natural Language Processing (NLP), the application extracts relevant information such as skills, experience, and keywords from the resume and evaluates them against the requirements of the job posting.
-
-The goal of this project is to demonstrate how AI-powered systems can assist in **resume screening and candidate evaluation**, while also showcasing the development of production-style AI applications using modern backend technologies.
+This project extracts structured data from resumes, compares it with job requirements, calculates match scores, and generates personalized suggestions to improve alignment.
 
 ---
 
-## Current Features
+## 🚀 Features
 
-- FastAPI backend setup  
-- Health check endpoint for service monitoring  
-- File upload API for resumes  
-- Local file storage for uploaded documents  
-- Project structure prepared for NLP-based resume analysis  
+### ✅ Resume Parsing
+- Extracts:
+  - Name
+  - Email
+  - Phone number
+  - Links (GitHub, LinkedIn, etc.)
+- Supports PDF and DOCX files
+
+### ✅ Skill Extraction
+- Uses alias-based matching (e.g., JS → JavaScript, CI/CD → Continuous Integration)
+- Handles variations using regex and normalization
+- Avoids false positives with safe matching logic
+
+### ✅ Job Description Analysis
+- Extracts required skills from job descriptions
+- Uses the same extraction pipeline for consistency
+
+### ✅ Skill Matching
+- Compares:
+  - Matched skills
+  - Missing skills
+  - Extra skills
+
+### ✅ Scoring System
+- Basic Match Score (skill overlap)
+- Weighted Match Score (category-based weighting)
+
+### ✅ Smart Suggestions
+- Summary, strengths, improvements
+- Highlight advice
+- Category-based feedback
 
 ---
 
-## Planned Features
+## 🧠 How It Works
 
-- Resume text extraction from PDF and DOCX  
-- Skill and keyword extraction using NLP  
-- Job description parsing  
-- Resume-to-job matching score  
-- Suggestions to improve resume alignment with job requirements  
-- Dockerized deployment  
-- CI/CD pipeline integration  
+Resume Upload → Text Extraction → Skill Extraction → Job Parsing → Matching → Scoring → Suggestions
 
 ---
 
-## Tech Stack
+## 🧱 Tech Stack
 
-### Backend
-- Python
 - FastAPI
-- Uvicorn
-
-### AI / NLP (planned)
-- spaCy
-- Text processing utilities
-
-### DevOps (planned)
-- Docker
-- GitHub Actions
+- Python
+- Regex-based NLP
+- JSON (skills, categories)
 
 ---
 
-## Running the Project Locally
+## ⚙️ How to Run
 
-### Clone the repository
+1. Clone repo:
+git clone https://github.com/your-username/resume-analyzer.git
+
+2. Setup:
+python -m venv venv
+source venv/bin/activate
+
+3. Install:
+pip install -r requirements.txt
+
+4. Run:
+uvicorn app.main:app --reload
+
+5. Open:
+http://127.0.0.1:8000/docs
+
+---
+
+## 📌 Future Improvements
+- Frontend (React)
+- NLP (spaCy / embeddings)
+- LLM-based suggestions
+- Docker + CI/CD
