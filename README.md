@@ -1,84 +1,88 @@
-# 📄 Resume Analyzer API
+# Resume Analyzer
 
-An AI-inspired backend system that analyzes resumes against job descriptions and provides actionable insights.
+## Overview
+Resume Analyzer is a backend system built with FastAPI that evaluates how well a candidate’s resume matches a job description.
 
-This project extracts structured data from resumes, compares it with job requirements, calculates match scores, and generates personalized suggestions to improve alignment.
+Unlike basic keyword matchers, this system introduces:
+- Category-aware skill analysis (DevOps, Cloud, Backend, etc.)
+- Weighted scoring based on job requirements
+- Explainable feedback generation
+- Actionable suggestions for improving resume alignment
 
----
-
-## 🚀 Features
-
-### ✅ Resume Parsing
-- Extracts:
-  - Name
-  - Email
-  - Phone number
-  - Links (GitHub, LinkedIn, etc.)
-- Supports PDF and DOCX files
-
-### ✅ Skill Extraction
-- Uses alias-based matching (e.g., JS → JavaScript, CI/CD → Continuous Integration)
-- Handles variations using regex and normalization
-- Avoids false positives with safe matching logic
-
-### ✅ Job Description Analysis
-- Extracts required skills from job descriptions
-- Uses the same extraction pipeline for consistency
-
-### ✅ Skill Matching
-- Compares:
-  - Matched skills
-  - Missing skills
-  - Extra skills
-
-### ✅ Scoring System
-- Basic Match Score (skill overlap)
-- Weighted Match Score (category-based weighting)
-
-### ✅ Smart Suggestions
-- Summary, strengths, improvements
-- Highlight advice
-- Category-based feedback
+The goal of this project is to simulate a production-style backend system that combines structured data processing with intelligent evaluation logic.
 
 ---
 
-## 🧠 How It Works
-
-Resume Upload → Text Extraction → Skill Extraction → Job Parsing → Matching → Scoring → Suggestions
+## Key Highlights
+- Designed a modular backend architecture using FastAPI
+- Built a skill extraction system with alias normalization and regex matching
+- Implemented category-based grouping of skills using JSON-driven mappings
+- Developed a weighted scoring algorithm based on job requirements
+- Created category-level gap detection to identify major skill deficiencies
+- Generated human-readable suggestions (strengths, improvements, targeted feedback)
+- Designed system to be extensible for future AI/LLM integration
 
 ---
 
-## 🧱 Tech Stack
+## Engineering Decisions
+- Explainability over black-box AI  
+  Scoring logic is transparent and easy to understand
 
-- FastAPI
+- Separation of concerns  
+  Skill extraction, categorization, scoring, and suggestion logic are modular
+
+- Category-based reasoning  
+  Skills are grouped into meaningful domains instead of flat keyword matching
+
+- Weighted scoring  
+  Important categories (e.g., DevOps, Cloud) influence results more than less relevant ones
+
+---
+
+## Features
+- Resume upload (PDF, DOCX)
+- Text extraction and parsing
+- Skill extraction with alias handling
+- Skill comparison (matched, missing, extra)
+- Category grouping for both resume and job description
+- Match score (baseline)
+- Weighted match score (category-aware)
+- Category-level match summary
+- Intelligent suggestion generation
+
+---
+
+## Example Output (Simplified)
+- Match Score: 22%
+- Weighted Match Score: 45%
+- Category Feedback:
+  "The biggest gap is in DevOps-related skills, especially Kubernetes, Terraform, and Jenkins."
+
+---
+
+## Why This Matters
+This system provides more meaningful feedback than traditional resume scanners by explaining why a candidate is a good or poor fit, not just returning a score.
+
+---
+
+## Tech Stack
 - Python
-- Regex-based NLP
-- JSON (skills, categories)
+- FastAPI
+- Pydantic
+- Regex (re)
+- pdfminer.six
+- python-docx
 
 ---
 
-## ⚙️ How to Run
-
-1. Clone repo:
-git clone https://github.com/your-username/resume-analyzer.git
-
-2. Setup:
-python -m venv venv
-source venv/bin/activate
-
-3. Install:
-pip install -r requirements.txt
-
-4. Run:
-uvicorn app.main:app --reload
-
-5. Open:
-http://127.0.0.1:8000/docs
+## Future Improvements
+- Docker + deployment
+- CI/CD pipeline
+- Database for storing results
+- Frontend dashboard
+- LLM-based suggestion improvements
 
 ---
 
-## 📌 Future Improvements
-- Frontend (React)
-- NLP (spaCy / embeddings)
-- LLM-based suggestions
-- Docker + CI/CD
+## Author
+Divyesh Joshi
