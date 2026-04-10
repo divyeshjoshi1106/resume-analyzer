@@ -17,8 +17,10 @@ def generate_suggestions(
     match_summary,
     job_skills_groups,
 ) -> dict:
-    matched = skill_comparison.get("matched_skills", [])
-    missing = skill_comparison.get("missing_skills", [])
+    matched = skill_comparison.get("matched_skills", [])[
+        :5
+    ]  # limit to 5 skills for ui purpose
+    missing = skill_comparison.get("missing_skills", [])[:5]
 
     if match_score <= 30:
         summary = "This resume currently has a low match with the job requirements."
