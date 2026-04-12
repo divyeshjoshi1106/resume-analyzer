@@ -10,6 +10,7 @@ from services.matcher import (
 )
 from services.suggester import generate_suggestions
 from services.skill_categorizer import categorize_skills, build_category_match_summary
+from services.analyzer import analyze_resume_core
 
 app = FastAPI()
 
@@ -130,4 +131,36 @@ async def analyze_resume(
         "resume_skills_groups": resume_skills_groups,
         "match_summary": match_summary,
         "weighted_match_score": weighted_match_score,
+    }
+
+
+@app.post("/analyze_resume_clean")
+async def analyze_resume_clean(
+    file: UploadFile = File(...), job_description: str = Form(...)
+):
+
+    if file.content_type not in ALLOWED_TYPES:
+        raise HTTPException(
+            status_code=400, detail="Only PDF and DOCX files are allowed"
+        )
+
+    content = await file.read()
+
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    print(file_path)
+
+    with open(file_path, "wb") as f:
+        f.write(content)
+
+    analysis_result = analyze_resume_core(file_path, job_description)
+
+    return {
+        "name": analysis_result["parsed_data"]["name"],
+        "match_level": analysis_result["suggestions"]["match_level"],
+        "match_score": analysis_result["match_score"],
+        "weighted_match_score": analysis_result["weighted_match_score"],
+        "matched_skills": analysis_result["skill_comparison"]["matched_skills"],
+        "missing_skills": analysis_result["skill_comparison"]["missing_skills"],
+        "suggestions": analysis_result["suggestions"],
+        "analyzed_at": analysis_result["analyzed_at"],
     }

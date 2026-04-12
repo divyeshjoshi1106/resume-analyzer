@@ -17,20 +17,21 @@ def generate_suggestions(
     match_summary,
     job_skills_groups,
 ) -> dict:
-    matched = skill_comparison.get("matched_skills", [])[
-        :5
-    ]  # limit to 5 skills for ui purpose
-    missing = skill_comparison.get("missing_skills", [])[:5]
+    matched = skill_comparison.get("matched_skills", [])
+    missing = skill_comparison.get("missing_skills", [])
 
     if match_score <= 30:
         summary = "This resume currently has a low match with the job requirements."
         score_feedback = "The resume may need significant tailoring for this role, especially around the missing technical requirements."
+        match_level = "Low"
     elif match_score <= 60:
         summary = "This resume shows a moderate match with the job requirements."
         score_feedback = "The resume has some relevant alignment, but could be strengthened by emphasizing more of the required tools and technologies."
+        match_level = "Moderate"
     else:
         summary = "This resume shows a strong match with the job requirements."
         score_feedback = "The resume is already well aligned with the role and may only need minor tailoring."
+        match_level = "Strong"
 
     if matched:
         strengths = f"Your profile already aligns with the role in areas such as {format_skill_list(matched)}."
@@ -49,6 +50,7 @@ def generate_suggestions(
     )
 
     return {
+        "match_level": match_level,
         "summary": summary,
         "strengths": strengths,
         "improvements": improvements,
@@ -58,7 +60,6 @@ def generate_suggestions(
     }
 
 
-# TODO
 def generate_category_feedback(match_summary, job_skills_groups, missing_skills):
     best_category = None
     best_missing_skills = []
@@ -93,9 +94,9 @@ def generate_category_feedback(match_summary, job_skills_groups, missing_skills)
     category_display = format_category_name(best_category)
 
     if best_missing_skills:
-        return f"The biggest gap is in {category_display}-related skills, especially {format_skill_list(best_missing_skills)}."
+        return f"The biggest gap is in {category_display}-related skills, especially {format_skill_list(best_missing_skills)}, which are important for this role."
     else:
-        return f"The biggest gap is in {category_display}-related skills."
+        return f"The biggest main is in {category_display}-related skills, which are important for this role."
 
 
 def format_category_name(category):
