@@ -78,6 +78,18 @@ async def parse_resume(file: UploadFile = File(...)):
 async def analyze_resume(
     file: UploadFile = File(...), job_description: str = Form(...)
 ):
+    if not job_description or not job_description.strip():
+        raise HTTPException(status_code=400, detail="Job description cannot be empty.")
+
+    if len(job_description.strip()) < 100:
+        raise HTTPException(
+            status_code=400,
+            detail="Job description is too short. Please provide more details.",
+        )
+
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file was uploaded.")
+
     if file.content_type not in ALLOWED_TYPES:
         raise HTTPException(
             status_code=400, detail="Only PDF and DOCX files are allowed"
@@ -85,7 +97,12 @@ async def analyze_resume(
 
     content = await file.read()
 
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    if not content:
+        raise HTTPException(status_code=400, detail="Uploaded file is empty.")
+
+    safe_filename = os.path.basename(file.filename)
+    file_path = os.path.join(UPLOAD_DIR, safe_filename)
+
     print(file_path)
 
     with open(file_path, "wb") as f:
@@ -139,6 +156,18 @@ async def analyze_resume_clean(
     file: UploadFile = File(...), job_description: str = Form(...)
 ):
 
+    if not job_description or not job_description.strip():
+        raise HTTPException(status_code=400, detail="Job description cannot be empty.")
+
+    if len(job_description.strip()) < 100:
+        raise HTTPException(
+            status_code=400,
+            detail="Job description is too short. Please provide more details.",
+        )
+
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file was uploaded.")
+
     if file.content_type not in ALLOWED_TYPES:
         raise HTTPException(
             status_code=400, detail="Only PDF and DOCX files are allowed"
@@ -146,13 +175,25 @@ async def analyze_resume_clean(
 
     content = await file.read()
 
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    if not content:
+        raise HTTPException(status_code=400, detail="Uploaded file is empty.")
+
+    safe_filename = os.path.basename(file.filename)
+    file_path = os.path.join(UPLOAD_DIR, safe_filename)
+
     print(file_path)
 
     with open(file_path, "wb") as f:
         f.write(content)
 
-    analysis_result = analyze_resume_core(file_path, job_description)
+    try:
+        analysis_result = analyze_resume_core(file_path, job_description)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception:
+        raise HTTPException(
+            status_code=500, detail="An unexpected error occurred during analysis."
+        )
 
     return {
         "name": analysis_result["parsed_data"]["name"],

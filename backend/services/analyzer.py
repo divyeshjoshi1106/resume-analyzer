@@ -14,6 +14,9 @@ import datetime
 def analyze_resume_core(file_path: str, job_description: str):
     extracted_text = extract_text(file_path)
 
+    if not extracted_text or not extracted_text.strip():
+        raise ValueError("No readable text could be extracted from the uploaded file.")
+
     parsed_data = parse_resume_text(extracted_text)
 
     job_details = extract_skills(job_description)
