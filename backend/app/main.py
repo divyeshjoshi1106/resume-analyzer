@@ -190,7 +190,8 @@ async def analyze_resume_clean(
         analysis_result = analyze_resume_core(file_path, job_description)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception:
+    except Exception as e:
+        print(e)
         raise HTTPException(
             status_code=500, detail="An unexpected error occurred during analysis."
         )
