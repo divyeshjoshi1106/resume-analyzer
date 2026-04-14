@@ -32,8 +32,9 @@ This project demonstrates how structured backend systems can simulate intelligen
 
 ## Example Output (Clean Report)
 
+```json
 {
-  "candidate_name": "John DOe",
+  "candidate_name": "John Doe",
   "match_level": "Low",
   "match_score": 22.22,
   "weighted_match_score": 45.83,
@@ -44,6 +45,7 @@ This project demonstrates how structured backend systems can simulate intelligen
   "category_feedback": "...",
   "analyzed_at": "2026-04-12T..."
 }
+```
 
 ---
 
@@ -69,10 +71,14 @@ This project demonstrates how structured backend systems can simulate intelligen
 
 ## Project Structure
 
+The project follows a modular service-based architecture:
+
+```
 backend/
 │
 ├── app/
 │   ├── main.py
+│   │
 │   ├── services/
 │   │   ├── analyzer.py
 │   │   ├── text_extractor.py
@@ -91,6 +97,7 @@ backend/
 │   └── uploads/
 │
 └── requirements.txt
+```
 
 ---
 
