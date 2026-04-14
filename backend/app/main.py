@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import os
 from services.text_extractor import extract_text
 from services.resume_parser import parse_resume_text
@@ -14,7 +15,16 @@ from services.analyzer import analyze_resume_core
 from services.report_builder import build_analysis_report
 from services.upload_handler import validate_and_save_upload
 
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
