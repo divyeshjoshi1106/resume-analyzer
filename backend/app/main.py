@@ -11,6 +11,8 @@ from services.matcher import (
 from services.suggester import generate_suggestions
 from services.skill_categorizer import categorize_skills, build_category_match_summary
 from services.analyzer import analyze_resume_core
+from services.report_builder import build_analysis_report
+from services.upload_handler import validate_and_save_upload
 
 app = FastAPI()
 
@@ -81,7 +83,7 @@ async def analyze_resume(
     if not job_description or not job_description.strip():
         raise HTTPException(status_code=400, detail="Job description cannot be empty.")
 
-    if len(job_description.strip()) < 100:
+    if len(job_description.strip()) < 40:
         raise HTTPException(
             status_code=400,
             detail="Job description is too short. Please provide more details.",
@@ -159,7 +161,7 @@ async def analyze_resume_clean(
     if not job_description or not job_description.strip():
         raise HTTPException(status_code=400, detail="Job description cannot be empty.")
 
-    if len(job_description.strip()) < 100:
+    if len(job_description.strip()) < 40:
         raise HTTPException(
             status_code=400,
             detail="Job description is too short. Please provide more details.",
@@ -206,3 +208,24 @@ async def analyze_resume_clean(
         "suggestions": analysis_result["suggestions"],
         "analyzed_at": analysis_result["analyzed_at"],
     }
+
+
+@app.post("/analyze_resume_report")
+async def analyze_resume_report(
+    file: UploadFile = File(...), job_description: str = Form(...)
+):
+    try:
+        job_description, file_path = await validate_and_save_upload(
+            file, job_description
+        )
+        analysis_result = analyze_resume_core(file_path, job_description)
+        report = build_analysis_report(analysis_result)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(e)
+        raise HTTPException(
+            status_code=500, detail="An unexpected error occurred during analysis."
+        )
+
+    return report
