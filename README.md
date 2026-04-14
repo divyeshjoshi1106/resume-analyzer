@@ -1,88 +1,196 @@
 # Resume Analyzer
 
 ## Overview
-Resume Analyzer is a backend system built with FastAPI that evaluates how well a candidate’s resume matches a job description.
 
-Unlike basic keyword matchers, this system introduces:
-- Category-aware skill analysis (DevOps, Cloud, Backend, etc.)
-- Weighted scoring based on job requirements
-- Explainable feedback generation
-- Actionable suggestions for improving resume alignment
+Resume Analyzer is a backend-driven application built with FastAPI that evaluates how well a candidate’s resume matches a job description.
 
-The goal of this project is to simulate a production-style backend system that combines structured data processing with intelligent evaluation logic.
+The system goes beyond simple keyword matching by introducing:
+- category-aware skill analysis
+- weighted scoring based on job requirements
+- explainable feedback generation
+- actionable suggestions for improvement
 
----
-
-## Key Highlights
-- Designed a modular backend architecture using FastAPI
-- Built a skill extraction system with alias normalization and regex matching
-- Implemented category-based grouping of skills using JSON-driven mappings
-- Developed a weighted scoring algorithm based on job requirements
-- Created category-level gap detection to identify major skill deficiencies
-- Generated human-readable suggestions (strengths, improvements, targeted feedback)
-- Designed system to be extensible for future AI/LLM integration
+This project demonstrates how structured backend systems can simulate intelligent resume screening workflows.
 
 ---
 
-## Engineering Decisions
-- Explainability over black-box AI  
-  Scoring logic is transparent and easy to understand
+## Key Features
 
-- Separation of concerns  
-  Skill extraction, categorization, scoring, and suggestion logic are modular
-
-- Category-based reasoning  
-  Skills are grouped into meaningful domains instead of flat keyword matching
-
-- Weighted scoring  
-  Important categories (e.g., DevOps, Cloud) influence results more than less relevant ones
-
----
-
-## Features
-- Resume upload (PDF, DOCX)
+- Resume upload (PDF / DOCX)
 - Text extraction and parsing
-- Skill extraction with alias handling
+- Skill extraction with alias normalization
 - Skill comparison (matched, missing, extra)
-- Category grouping for both resume and job description
+- Category-based grouping (DevOps, Cloud, Backend, etc.)
 - Match score (baseline)
 - Weighted match score (category-aware)
 - Category-level match summary
-- Intelligent suggestion generation
+- Suggestion engine (strengths, improvements, feedback)
+- Clean report generation API
+- Input validation and error handling
 
 ---
 
-## Example Output (Simplified)
-- Match Score: 22%
-- Weighted Match Score: 45%
-- Category Feedback:
-  "The biggest gap is in DevOps-related skills, especially Kubernetes, Terraform, and Jenkins."
+## Example Output (Clean Report)
 
----
-
-## Why This Matters
-This system provides more meaningful feedback than traditional resume scanners by explaining why a candidate is a good or poor fit, not just returning a score.
+{
+  "candidate_name": "John DOe",
+  "match_level": "Low",
+  "match_score": 22.22,
+  "weighted_match_score": 45.83,
+  "matched_skills": ["AWS", "Docker"],
+  "missing_skills": ["Ansible", "CI/CD"],
+  "summary": "This resume currently has a low match...",
+  "top_improvements": "...",
+  "category_feedback": "...",
+  "analyzed_at": "2026-04-12T..."
+}
 
 ---
 
 ## Tech Stack
+
+### Backend
 - Python
 - FastAPI
-- Pydantic
-- Regex (re)
+- Pydantic (planned)
+- Uvicorn
+
+### Processing
 - pdfminer.six
 - python-docx
+- regex (re)
+
+### Architecture
+- modular service-based design
+- clean separation of concerns
+- reusable core analysis pipeline
+
+---
+
+## Project Structure
+
+backend/
+│
+├── app/
+│   ├── main.py
+│   ├── services/
+│   │   ├── analyzer.py
+│   │   ├── text_extractor.py
+│   │   ├── resume_parser.py
+│   │   ├── skill_extractor.py
+│   │   ├── matcher.py
+│   │   ├── skill_categorizer.py
+│   │   ├── suggester.py
+│   │   ├── report_builder.py
+│   │   └── upload_handler.py
+│   │
+│   ├── data/
+│   │   ├── skills.json
+│   │   └── skill_categories.json
+│   │
+│   └── uploads/
+│
+└── requirements.txt
+
+---
+
+## API Endpoints
+
+### 1. Full Analysis (Debug)
+POST /analyze_resume
+
+### 2. Clean Response
+POST /analyze_resume_clean
+
+### 3. Report Endpoint (Recommended)
+POST /analyze_resume_report
+
+---
+
+## Scoring Logic
+
+### Match Score
+Basic percentage of matched skills between resume and job description.
+
+### Weighted Match Score
+Category-based scoring using weights such as:
+- DevOps
+- Cloud
+- Backend
+- Tools
+
+Only categories present in the job description influence the final score.
+
+---
+
+## Suggestion System
+
+The system generates:
+- Summary (low / moderate / strong match)
+- Strengths (matched skills)
+- Improvements (missing skills)
+- Highlight advice
+- Category feedback (biggest skill gap)
+
+This makes the output more actionable and user-friendly.
+
+---
+
+## Error Handling
+
+The API handles:
+- invalid file types
+- empty uploads
+- short/invalid job descriptions
+- unreadable PDFs
+- unexpected server errors
+
+Uses:
+- 400 for user input errors
+- 500 for system errors
+
+---
+
+## Why This Project
+
+This project focuses on building a real backend system, not just a demo.
+
+Key design goals:
+- explainable logic instead of black-box AI
+- deterministic and testable outputs
+- modular architecture
+- production-style API design
+
+---
+
+## Current Status
+
+### Completed
+- core analysis pipeline
+- scoring and suggestions
+- report builder
+- input validation
+- clean API endpoints
+
+### In Progress
+- UI improvements
+- response models (Pydantic)
+- testing (pytest)
+- Docker setup
+- CI/CD pipeline
 
 ---
 
 ## Future Improvements
-- Docker + deployment
-- CI/CD pipeline
-- Database for storing results
-- Frontend dashboard
-- LLM-based suggestion improvements
+
+- React frontend
+- LLM-based suggestion enhancement
+- database for storing analysis history
+- deployment (cloud)
+- Docker Compose setup
 
 ---
 
 ## Author
+
 Divyesh Joshi
