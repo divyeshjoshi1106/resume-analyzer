@@ -21,6 +21,11 @@ def analyze_resume_core(file_path: str, job_description: str):
 
     job_details = extract_skills(job_description)
 
+    if not job_details:
+        raise ValueError(
+            "No recognizable job-related skills were found in the job description. Please provide a more detailed and relevant job description."
+        )
+
     job_skills_groups = categorize_skills(job_details)
 
     resume_skills = parsed_data.get("skills", [])
