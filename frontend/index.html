@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Resume Analyzer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-page="home">
+  <main class="page">
+    <section class="card">
+      <h1>Resume Analyzer</h1>
+      <p class="subtitle">Upload a resume and compare it against a job description.</p>
 
-<h1>Resume Analyzer</h1>
+      <form id="analyze-form" class="form">
+        <label for="resume-file">Resume (PDF or DOCX)</label>
+        <input id="resume-file" name="file" type="file" accept=".pdf,.doc,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
 
-<form id="uploadForm">
-    <label>Upload Resume:</label><br>
-    <input type="file" id="file" required><br><br>
+        <label for="job-description">Job Description</label>
+        <textarea id="job-description" name="job_description" rows="8" placeholder="Paste the job description here..." required></textarea>
 
-    <label>Job Description:</label><br>
-    <textarea id="job_description" rows="10" cols="50" required></textarea><br><br>
+        <button id="analyze-button" type="submit">Analyze</button>
+      </form>
 
-    <button type="submit">Analyze</button>
-</form>
+      <div id="loading-state" class="loading hidden" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Analyzing...</span>
+      </div>
+    </section>
+  </main>
 
-<hr>
-
-<div id="result"></div>
-
-<script src="script.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>

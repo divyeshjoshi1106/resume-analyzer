@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analysis Result</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="result">
+  <main class="page">
+    <section class="card">
+      <h1>Analysis Result</h1>
+      <p class="subtitle">Resume and job description matching insights.</p>
+
+      <div class="result-grid">
+        <div class="metric">
+          <span class="metric-label">Candidate Name</span>
+          <span id="candidate-name" class="metric-value">-</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Match Score</span>
+          <span id="match-score" class="metric-value">-</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Weighted Score</span>
+          <span id="weighted-score" class="metric-value">-</span>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <h2>Matched Skills</h2>
+        <ul id="matched-skills" class="chip-list"></ul>
+      </div>
+
+      <div class="result-section">
+        <h2>Missing Skills</h2>
+        <ul id="missing-skills" class="chip-list chip-list-warn"></ul>
+      </div>
+
+      <div class="result-section">
+        <h2>Suggestions</h2>
+        <p id="suggestions">-</p>
+      </div>
+
+      <div class="result-section">
+        <h2>Category Feedback</h2>
+        <p id="category-feedback">-</p>
+      </div>
+
+      <div class="actions">
+        <button type="button" data-action="home">Back to Home</button>
+        <button type="button" data-action="another-job">Analyze Another Job</button>
+        <button type="button" data-action="new-resume">Upload New Resume</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
