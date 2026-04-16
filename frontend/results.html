@@ -12,45 +12,58 @@
       <h1>Analysis Result</h1>
       <p class="subtitle">Resume and job description matching insights.</p>
 
-      <div class="result-grid">
-        <div class="metric">
+      <div class="result-section section-summary">
+        <h2>Summary</h2>
+        <div class="result-grid">
+          <div class="metric">
           <span class="metric-label">Candidate Name</span>
-          <span id="candidate-name" class="metric-value">-</span>
-        </div>
-        <div class="metric">
+          <span id="candidate-name" class="metric-value candidate-value">-</span>
+          </div>
+          <div class="metric">
           <span class="metric-label">Match Score</span>
           <span id="match-score" class="metric-value">-</span>
-        </div>
-        <div class="metric">
+          </div>
+          <div class="metric">
           <span class="metric-label">Weighted Score</span>
           <span id="weighted-score" class="metric-value">-</span>
+          </div>
+          <div class="metric">
+          <span class="metric-label">Match Level</span>
+          <span id="match-level" class="metric-value match-level-badge">-</span>
+          </div>
         </div>
       </div>
 
-      <div class="result-section">
+      <div class="section-divider" aria-hidden="true"></div>
+
+      <div class="result-section section-skills">
         <h2>Matched Skills</h2>
         <ul id="matched-skills" class="chip-list"></ul>
-      </div>
-
-      <div class="result-section">
         <h2>Missing Skills</h2>
         <ul id="missing-skills" class="chip-list chip-list-warn"></ul>
       </div>
 
-      <div class="result-section">
-        <h2>Suggestions</h2>
-        <p id="suggestions">-</p>
-      </div>
+      <div class="section-divider" aria-hidden="true"></div>
 
-      <div class="result-section">
-        <h2>Category Feedback</h2>
-        <p id="category-feedback">-</p>
+      <div class="result-section section-suggestions">
+        <h2>Suggestions</h2>
+        <div class="suggestion-block">
+          <h3>Summary</h3>
+          <p id="summary-text">-</p>
+        </div>
+        <div class="suggestion-block">
+          <h3>Improvements</h3>
+          <ul id="improvements-list" class="feedback-list"></ul>
+        </div>
+        <div class="suggestion-block">
+          <h3>Category Feedback</h3>
+          <ul id="category-feedback-list" class="feedback-list"></ul>
+        </div>
       </div>
 
       <div class="actions">
-        <button type="button" data-action="home">Back to Home</button>
-        <button type="button" data-action="another-job">Analyze Another Job</button>
-        <button type="button" data-action="new-resume">Upload New Resume</button>
+        <button type="button" data-action="another-job">Analyze Another</button>
+        <button type="button" data-action="reset">Reset</button>
       </div>
     </section>
   </main>

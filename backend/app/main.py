@@ -168,37 +168,10 @@ async def analyze_resume_clean(
     file: UploadFile = File(...), job_description: str = Form(...)
 ):
 
-    if not job_description or not job_description.strip():
-        raise HTTPException(status_code=400, detail="Job description cannot be empty.")
-
-    if len(job_description.strip()) < 40:
-        raise HTTPException(
-            status_code=400,
-            detail="Job description is too short. Please provide more details.",
-        )
-
-    if not file.filename:
-        raise HTTPException(status_code=400, detail="No file was uploaded.")
-
-    if file.content_type not in ALLOWED_TYPES:
-        raise HTTPException(
-            status_code=400, detail="Only PDF and DOCX files are allowed"
-        )
-
-    content = await file.read()
-
-    if not content:
-        raise HTTPException(status_code=400, detail="Uploaded file is empty.")
-
-    safe_filename = os.path.basename(file.filename)
-    file_path = os.path.join(UPLOAD_DIR, safe_filename)
-
-    print(file_path)
-
-    with open(file_path, "wb") as f:
-        f.write(content)
-
     try:
+        job_description, file_path = await validate_and_save_upload(
+            file, job_description
+        )
         analysis_result = analyze_resume_core(file_path, job_description)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

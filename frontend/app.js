@@ -88,10 +88,12 @@ function initResultPage() {
   setText("candidate-name", result.candidate_name || "N/A");
   setText("match-score", formatScore(result.match_score));
   setText("weighted-score", formatScore(result.weighted_match_score));
+  setMatchLevel(result.match_level || result.summary || "N/A");
   setList("matched-skills", result.matched_skills || [], "No matched skills found.");
   setList("missing-skills", result.missing_skills || [], "No missing skills found.");
-  setText("suggestions", result.top_improvements || result.summary || "No suggestions available.");
-  setText("category-feedback", result.category_feedback || "No category feedback available.");
+  setText("summary-text", result.summary || "No summary available.");
+  setBulletList("improvements-list", result.top_improvements, "No improvements available.");
+  setBulletList("category-feedback-list", result.category_feedback, "No category feedback available.");
 }
 
 function initErrorPage() {
@@ -104,7 +106,7 @@ function bindCommonActions() {
     button.addEventListener("click", () => {
       const action = button.dataset.action;
 
-      if (action === "home" || action === "new-resume") {
+      if (action === "home" || action === "reset") {
         clearStoredMessages();
         window.location.href = "index.html";
       }
@@ -115,6 +117,36 @@ function bindCommonActions() {
       }
     });
   });
+}
+
+function setMatchLevel(rawLevel) {
+  const element = document.getElementById("match-level");
+  if (!element) {
+    return;
+  }
+
+  const level = String(rawLevel).toLowerCase();
+  element.classList.remove("match-low", "match-moderate", "match-strong");
+
+  if (level.includes("strong")) {
+    element.classList.add("match-strong");
+    element.textContent = "Strong";
+    return;
+  }
+
+  if (level.includes("moderate")) {
+    element.classList.add("match-moderate");
+    element.textContent = "Moderate";
+    return;
+  }
+
+  if (level.includes("low")) {
+    element.classList.add("match-low");
+    element.textContent = "Low";
+    return;
+  }
+
+  element.textContent = rawLevel || "N/A";
 }
 
 function setLoadingState(isLoading, loadingElement, submitButton) {
@@ -172,6 +204,40 @@ function setList(id, items, emptyMessage) {
     li.textContent = item;
     element.appendChild(li);
   });
+}
+
+function setBulletList(id, textValue, emptyMessage) {
+  const element = document.getElementById(id);
+  if (!element) {
+    return;
+  }
+
+  element.innerHTML = "";
+  const parsedItems = splitFeedbackText(textValue);
+
+  if (parsedItems.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = emptyMessage;
+    element.appendChild(li);
+    return;
+  }
+
+  parsedItems.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    element.appendChild(li);
+  });
+}
+
+function splitFeedbackText(value) {
+  if (!value || typeof value !== "string") {
+    return [];
+  }
+
+  return value
+    .split(/[\n;.]+/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
 }
 
 function formatScore(score) {

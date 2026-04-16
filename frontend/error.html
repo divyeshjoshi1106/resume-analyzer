@@ -9,12 +9,13 @@
 <body data-page="error">
   <main class="page">
     <section class="card error-card">
-      <h1>Unable to Analyze Resume</h1>
+      <div class="error-icon" aria-hidden="true">⚠️</div>
+      <h1 class="error-title">Unable to Analyze Resume</h1>
       <p class="subtitle">Something went wrong while processing your request.</p>
 
       <div class="error-message">
         <strong>Details:</strong>
-        <p id="error-message-text">An unexpected error occurred.</p>
+        <p id="error-message-text" class="error-detail-text">An unexpected error occurred.</p>
       </div>
 
       <div class="actions">
