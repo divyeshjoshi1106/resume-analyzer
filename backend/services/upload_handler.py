@@ -1,14 +1,6 @@
-from fastapi import UploadFile, HTTPException
+from fastapi import UploadFile
+from app.config import ALLOWED_TYPES, MIN_JOB_DESCRIPTION_LENGTH, UPLOAD_DIR
 import os
-
-# TODO: move shared path/config constants into config.py
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
-
-ALLOWED_TYPES = {
-    "application/pdf",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-}
 
 
 async def validate_and_save_upload(
@@ -17,7 +9,7 @@ async def validate_and_save_upload(
     if not job_description or not job_description.strip():
         raise ValueError("Job description cannot be empty.")
 
-    if len(job_description.strip()) < 40:
+    if len(job_description.strip()) < MIN_JOB_DESCRIPTION_LENGTH:
         raise ValueError("Job description is too short. Please provide more details.")
 
     if not file.filename:

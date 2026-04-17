@@ -1,10 +1,4 @@
-CATEGORY_WEIGHTS = {
-    "devops": 0.4,
-    "cloud": 0.3,
-    "tools_collaboration": 0.1,
-    "backend": 0.2,
-    "data_ai": 0.1,
-}
+from app.config import CATEGORY_WEIGHTS
 
 
 def compare_skills(resume_skills: list[str], job_skills: list[str]):
