@@ -17,51 +17,51 @@ def analyze_resume_core(file_path: str, job_description: str):
     if not extracted_text or not extracted_text.strip():
         raise ValueError("No readable text could be extracted from the uploaded file.")
 
-    parsed_data = parse_resume_text(extracted_text)
+    resume_details = parse_resume_text(extracted_text)
 
-    job_details = extract_skills(job_description)
+    job_skills = extract_skills(job_description)
 
-    if not job_details:
+    if not job_skills:
         raise ValueError(
             "No recognizable job-related skills were found in the job description. Please provide a more detailed and relevant job description."
         )
 
-    job_skills_groups = categorize_skills(job_details)
+    job_skills_groups = categorize_skills(job_skills)
 
-    resume_skills = parsed_data.get("skills", [])
+    resume_skills = resume_details.get("skills", [])
 
     resume_skills_groups = categorize_skills(resume_skills)
 
-    skill_comparison = compare_skills(resume_skills, job_details)
+    skill_comparison = compare_skills(resume_skills, job_skills)
 
-    match_score = calculate_match_score(skill_comparison["matched_skills"], job_details)
+    match_score = calculate_match_score(skill_comparison["matched_skills"], job_skills)
 
-    match_summary = build_category_match_summary(
+    category_match_summary = build_category_match_summary(
         job_skills_groups, resume_skills_groups
     )
 
-    weighted_match_score = calculate_weighted_match_score(match_summary)
+    weighted_match_score = calculate_weighted_match_score(category_match_summary)
 
     suggestions = generate_suggestions(
-        parsed_data,
-        job_details,
+        resume_details,
+        job_skills,
         skill_comparison,
         match_score,
-        match_summary,
+        category_match_summary,
         job_skills_groups,
     )
 
     analyzed_at = datetime.datetime.now().isoformat()
 
     return {
-        "parsed_data": parsed_data,
-        "job_details": job_details,
+        "resume_details": resume_details,
+        "job_skills": job_skills,
         "skill_comparison": skill_comparison,
         "match_score": match_score,
         "suggestions": suggestions,
         "job_skills_groups": job_skills_groups,
         "resume_skills_groups": resume_skills_groups,
-        "match_summary": match_summary,
+        "category_match_summary": category_match_summary,
         "weighted_match_score": weighted_match_score,
         "analyzed_at": analyzed_at,
     }

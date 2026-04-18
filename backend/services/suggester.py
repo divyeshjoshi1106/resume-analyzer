@@ -10,11 +10,11 @@ def format_skill_list(skills):
 
 
 def generate_suggestions(
-    parsed_data,
-    job_details,
+    resume_details,
+    job_skills,
     skill_comparison,
     match_score,
-    match_summary,
+    category_match_summary,
     job_skills_groups,
 ) -> dict:
     matched = skill_comparison.get("matched_skills", [])
@@ -46,7 +46,7 @@ def generate_suggestions(
         improvements = "Your resume covers most of the required skills."
 
     category_feedback = generate_category_feedback(
-        match_summary, job_skills_groups, missing
+        category_match_summary, job_skills_groups, missing
     )
 
     return {
@@ -60,11 +60,13 @@ def generate_suggestions(
     }
 
 
-def generate_category_feedback(match_summary, job_skills_groups, missing_skills):
+def generate_category_feedback(
+    category_match_summary, job_skills_groups, missing_skills
+):
     best_category = None
     best_missing_skills = []
     highest_missing_count = 0
-    for category, category_data in match_summary.items():
+    for category, category_data in category_match_summary.items():
         matched = category_data["matched"]
         required = category_data["required"]
 

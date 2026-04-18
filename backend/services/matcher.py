@@ -23,10 +23,10 @@ def calculate_match_score(matched_skills: list[str], job_skills: list[str]):
     return match_score
 
 
-def calculate_weighted_match_score(match_summary: dict):
+def calculate_weighted_match_score(category_match_summary: dict):
     weighted_sum = 0
     used_weight_sum = 0
-    for category, category_data in match_summary.items():
+    for category, category_data in category_match_summary.items():
         if category not in CATEGORY_WEIGHTS:
             continue
 

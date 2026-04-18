@@ -79,10 +79,10 @@ async def parse_resume(file: UploadFile = File(...)):
 
     extracted_text = extract_text(file_path)
 
-    parsed_data = parse_resume_text(extracted_text)
+    resume_details = parse_resume_text(extracted_text)
 
     return {
-        "parsed_data": parsed_data,
+        "resume_details": resume_details,
     }
 
 
@@ -122,43 +122,43 @@ async def analyze_resume(
 
     extracted_text = extract_text(file_path)
 
-    parsed_data = parse_resume_text(extracted_text)
+    resume_details = parse_resume_text(extracted_text)
 
-    job_details = extract_skills(job_description)
+    job_skills = extract_skills(job_description)
 
-    job_skills_groups = categorize_skills(job_details)
+    job_skills_groups = categorize_skills(job_skills)
 
-    resume_skills = parsed_data.get("skills", [])
+    resume_skills = resume_details.get("skills", [])
 
     resume_skills_groups = categorize_skills(resume_skills)
 
-    skill_comparison = compare_skills(resume_skills, job_details)
+    skill_comparison = compare_skills(resume_skills, job_skills)
 
-    match_score = calculate_match_score(skill_comparison["matched_skills"], job_details)
+    match_score = calculate_match_score(skill_comparison["matched_skills"], job_skills)
 
-    match_summary = build_category_match_summary(
+    category_match_summary = build_category_match_summary(
         job_skills_groups, resume_skills_groups
     )
 
     suggestions = generate_suggestions(
-        parsed_data,
-        job_details,
+        resume_details,
+        job_skills,
         skill_comparison,
         match_score,
-        match_summary,
+        category_match_summary,
         job_skills_groups,
     )
-    weighted_match_score = calculate_weighted_match_score(match_summary)
+    weighted_match_score = calculate_weighted_match_score(category_match_summary)
 
     return {
-        "parsed_data": parsed_data,
-        "job_details": job_details,
+        "resume_details": resume_details,
+        "job_skills": job_skills,
         "skill_comparison": skill_comparison,
         "match_score": match_score,
         "suggestions": suggestions,
         "job_skills_groups": job_skills_groups,
         "resume_skills_groups": resume_skills_groups,
-        "match_summary": match_summary,
+        "category_match_summary": category_match_summary,
         "weighted_match_score": weighted_match_score,
     }
 
@@ -182,7 +182,7 @@ async def analyze_resume_clean(
         )
 
     return {
-        "name": analysis_result["parsed_data"]["name"],
+        "name": analysis_result["resume_details"]["name"],
         "match_level": analysis_result["suggestions"]["match_level"],
         "match_score": analysis_result["match_score"],
         "weighted_match_score": analysis_result["weighted_match_score"],

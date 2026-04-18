@@ -1,6 +1,6 @@
 def build_analysis_report(analysis_result: dict):
     return {
-        "candidate_name": analysis_result["parsed_data"]["name"],
+        "candidate_name": analysis_result["resume_details"]["name"],
         "match_level": analysis_result["suggestions"]["match_level"],
         "match_score": analysis_result["match_score"],
         "weighted_match_score": analysis_result["weighted_match_score"],
