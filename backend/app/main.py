@@ -141,8 +141,6 @@ async def analyze_resume(
     )
 
     suggestions = generate_suggestions(
-        resume_details,
-        job_skills,
         skill_comparison,
         match_score,
         category_match_summary,

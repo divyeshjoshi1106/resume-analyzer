@@ -10,8 +10,6 @@ def format_skill_list(skills):
 
 
 def generate_suggestions(
-    resume_details,
-    job_skills,
     skill_comparison,
     match_score,
     category_match_summary,

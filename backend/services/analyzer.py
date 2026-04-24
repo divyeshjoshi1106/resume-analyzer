@@ -43,8 +43,6 @@ def analyze_resume_core(file_path: str, job_description: str):
     weighted_match_score = calculate_weighted_match_score(category_match_summary)
 
     suggestions = generate_suggestions(
-        resume_details,
-        job_skills,
         skill_comparison,
         match_score,
         category_match_summary,
