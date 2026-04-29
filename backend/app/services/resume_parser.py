@@ -1,5 +1,5 @@
 import re
-from services.skill_extractor import extract_skills
+from app.services.skill_extractor import extract_skills
 
 
 def extract_email(text):

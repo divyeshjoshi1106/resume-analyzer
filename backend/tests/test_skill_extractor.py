@@ -1,4 +1,4 @@
-from services.skill_extractor import extract_skills
+from app.services.skill_extractor import extract_skills
 
 
 def test_extract_skills():

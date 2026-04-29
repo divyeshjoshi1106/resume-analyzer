@@ -5,7 +5,7 @@ from collections import defaultdict
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # services/
 BACKEND_DIR = os.path.dirname(BASE_DIR)  # backend/
 
-skills_path = os.path.join(BACKEND_DIR, "app", "data", "skill_categories.json")
+skills_path = os.path.join(BACKEND_DIR, "data", "skill_categories.json")
 
 with open(skills_path, "r", encoding="utf-8") as f:
     SKILLS_CATEGORIES = json.load(f)

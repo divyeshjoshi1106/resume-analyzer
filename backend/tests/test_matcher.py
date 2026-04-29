@@ -1,4 +1,4 @@
-from services.matcher import compare_skills, calculate_match_score
+from app.services.matcher import compare_skills, calculate_match_score
 
 
 def test_compare_skills():

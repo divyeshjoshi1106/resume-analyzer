@@ -2,10 +2,10 @@ import re
 import json
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # services/
-BACKEND_DIR = os.path.dirname(BASE_DIR)  # backend/
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # app/services
+APP_DIR = os.path.dirname(BASE_DIR)  # app/
 
-skills_path = os.path.join(BACKEND_DIR, "app", "data", "skills.json")
+skills_path = os.path.join(APP_DIR, "data", "skills.json")
 
 with open(skills_path, "r", encoding="utf-8") as f:
     SKILLS = json.load(f)

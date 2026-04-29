@@ -1,4 +1,4 @@
-from services.suggester import generate_suggestions
+from app.services.suggester import generate_suggestions
 
 
 def test_generate_suggestions():

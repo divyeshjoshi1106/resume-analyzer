@@ -1,19 +1,22 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from services.text_extractor import extract_text
-from services.resume_parser import parse_resume_text
-from services.skill_extractor import extract_skills
-from services.matcher import (
+from app.services.text_extractor import extract_text
+from app.services.resume_parser import parse_resume_text
+from app.services.skill_extractor import extract_skills
+from app.services.matcher import (
     compare_skills,
     calculate_match_score,
     calculate_weighted_match_score,
 )
-from services.suggester import generate_suggestions
-from services.skill_categorizer import categorize_skills, build_category_match_summary
-from services.analyzer import analyze_resume_core
-from services.report_builder import build_analysis_report
-from services.upload_handler import validate_and_save_upload
+from app.services.suggester import generate_suggestions
+from app.services.skill_categorizer import (
+    categorize_skills,
+    build_category_match_summary,
+)
+from app.services.analyzer import analyze_resume_core
+from app.services.report_builder import build_analysis_report
+from app.services.upload_handler import validate_and_save_upload
 
 
 app = FastAPI()
