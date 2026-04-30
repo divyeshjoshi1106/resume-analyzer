@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: resume-analyzer-backend
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: resume-analyzer-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
