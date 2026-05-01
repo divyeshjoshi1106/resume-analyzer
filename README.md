@@ -16,36 +16,41 @@ This project demonstrates how structured backend systems can simulate intelligen
 
 ## Key Features
 
-- Resume upload (PDF / DOCX)
-- Text extraction and parsing
-- Skill extraction with alias normalization
-- Skill comparison (matched, missing, extra)
-- Category-based grouping (DevOps, Cloud, Backend, etc.)
-- Match score (baseline)
-- Weighted match score (category-aware)
-- Category-level match summary
-- Suggestion engine (strengths, improvements, feedback)
-- Clean report generation API
-- Input validation and error handling
+- Resume upload support for PDF and DOCX
+- Text extraction from resumes
+- Contact detail extraction (name, email, phone, links)
+- Alias-based skill extraction
+- Job description skill extraction
+- Matched, missing, and extra skill comparison
+- Basic match score
+- Weighted match score using skill categories
+- Suggestion generation (summary, improvements, category feedback)
+- Clean report endpoint for frontend usage
+- Minimal frontend UI for interaction
+- Dockerized backend and frontend
+- Docker Compose setup
+- Environment-based configuration using .env
+- Unit tests and basic API tests using pytest
 
 ---
 
-## Example Output (Clean Report)
+## Architecture
 
-```json
-{
-  "candidate_name": "John Doe",
-  "match_level": "Low",
-  "match_score": 22.22,
-  "weighted_match_score": 45.83,
-  "matched_skills": ["AWS", "Docker"],
-  "missing_skills": ["Ansible", "CI/CD"],
-  "summary": "This resume currently has a low match...",
-  "top_improvements": "...",
-  "category_feedback": "...",
-  "analyzed_at": "2026-04-12T..."
-}
-```
+Resume Upload + Job Description  
+        ↓  
+FastAPI Backend  
+        ↓  
+Text Extraction  
+        ↓  
+Resume Parsing  
+        ↓  
+Skill Extraction  
+        ↓  
+Skill Matching  
+        ↓  
+Scoring + Suggestions  
+        ↓  
+Frontend Result Display  
 
 ---
 
@@ -54,149 +59,125 @@ This project demonstrates how structured backend systems can simulate intelligen
 ### Backend
 - Python
 - FastAPI
-- Pydantic (planned)
 - Uvicorn
+- Pytest
 
-### Processing
-- pdfminer.six
-- python-docx
-- regex (re)
+### Frontend
+- HTML
+- CSS
+- JavaScript
 
-### Architecture
-- modular service-based design
-- clean separation of concerns
-- reusable core analysis pipeline
+### DevOps
+- Docker
+- Docker Compose
+- Environment Variables (.env)
+
+### Parsing / NLP
+- Regex
+- Alias mapping
+- JSON-based skill and category configuration
 
 ---
 
-## Project Structure
+## Setup Instructions
 
-The project follows a modular service-based architecture:
+### Local Backend Setup
 
-```
-backend/
-│
-├── app/
-│   ├── main.py
-│   │
-│   ├── services/
-│   │   ├── analyzer.py
-│   │   ├── text_extractor.py
-│   │   ├── resume_parser.py
-│   │   ├── skill_extractor.py
-│   │   ├── matcher.py
-│   │   ├── skill_categorizer.py
-│   │   ├── suggester.py
-│   │   ├── report_builder.py
-│   │   └── upload_handler.py
-│   │
-│   ├── data/
-│   │   ├── skills.json
-│   │   └── skill_categories.json
-│   │
-│   └── uploads/
-│
-└── requirements.txt
-```
+cd backend  
+python -m venv .venv  
+
+Windows:
+.venv\Scripts\activate  
+
+pip install -r requirements.txt  
+uvicorn app.main:app --reload  
+
+---
+
+### Run with Docker Compose
+
+docker compose up --build  
+
+Access:
+
+Frontend: http://127.0.0.1:3000  
+Backend Docs: http://127.0.0.1:8000/docs  
 
 ---
 
 ## API Endpoints
 
-### 1. Full Analysis (Debug)
-POST /analyze_resume
+GET  /health  
+Health check  
 
-### 2. Clean Response
-POST /analyze_resume_clean
+POST /parse_resume  
+Extract resume details  
 
-### 3. Report Endpoint (Recommended)
-POST /analyze_resume_report
+POST /analyze_resume_clean  
+Full analysis (clean response)  
 
----
-
-## Scoring Logic
-
-### Match Score
-Basic percentage of matched skills between resume and job description.
-
-### Weighted Match Score
-Category-based scoring using weights such as:
-- DevOps
-- Cloud
-- Backend
-- Tools
-
-Only categories present in the job description influence the final score.
+POST /analyze_resume_report  
+Export-ready report  
 
 ---
 
-## Suggestion System
+## Example Response
 
-The system generates:
-- Summary (low / moderate / strong match)
-- Strengths (matched skills)
-- Improvements (missing skills)
-- Highlight advice
-- Category feedback (biggest skill gap)
-
-This makes the output more actionable and user-friendly.
-
----
-
-## Error Handling
-
-The API handles:
-- invalid file types
-- empty uploads
-- short/invalid job descriptions
-- unreadable PDFs
-- unexpected server errors
-
-Uses:
-- 400 for user input errors
-- 500 for system errors
+{
+  "candidate_name": "John Doe",
+  "match_level": "Low",
+  "match_score": 22.22,
+  "weighted_match_score": 45.83,
+  "matched_skills": ["AWS", "Docker"],
+  "missing_skills": ["Ansible", "Kubernetes", "Terraform"],
+  "summary": "This resume currently has a low match with the job requirements."
+}
 
 ---
 
-## Why This Project
+## Screenshots
 
-This project focuses on building a real backend system, not just a demo.
+## Screenshots
 
-Key design goals:
-- explainable logic instead of black-box AI
-- deterministic and testable outputs
-- modular architecture
-- production-style API design
+### Home Page
+![Home Page](docs/screenshots/home.png)
+
+### Analysis Result
+![Analysis Result](docs/screenshots/result.png)
 
 ---
 
-## Current Status
+## Running Tests
 
-### Completed
-- core analysis pipeline
-- scoring and suggestions
-- report builder
-- input validation
-- clean API endpoints
+cd backend  
+pytest  
 
-### In Progress
-- UI improvements
-- response models (Pydantic)
-- testing (pytest)
-- Docker setup
-- CI/CD pipeline
+Tests include:
+- Skill extraction
+- Skill matching
+- Match scoring
+- Suggestion generation
+- Basic API validation
 
 ---
 
 ## Future Improvements
 
-- React frontend
-- LLM-based suggestion enhancement
-- database for storing analysis history
-- deployment (cloud)
-- Docker Compose setup
+- Improve semantic skill matching using embeddings
+- Add LLM-based resume improvement suggestions
+- Add authentication and user history
+- Add downloadable PDF reports
+- Deploy frontend and backend publicly
+- Add CI/CD with GitHub Actions
 
 ---
+
+## Notes
+
+- Uploads folder is ignored using .gitignore
+- Environment variables are managed using .env and Docker Compose
+- Backend structured using app/services architecture
+- Frontend uses minimal JS with modular structure
 
 ## Author
 
