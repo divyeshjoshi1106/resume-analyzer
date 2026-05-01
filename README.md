@@ -123,6 +123,7 @@ Export-ready report
 
 ## Example Response
 
+```json
 {
   "candidate_name": "John Doe",
   "match_level": "Low",
@@ -132,10 +133,8 @@ Export-ready report
   "missing_skills": ["Ansible", "Kubernetes", "Terraform"],
   "summary": "This resume currently has a low match with the job requirements."
 }
-
+```
 ---
-
-## Screenshots
 
 ## Screenshots
 
