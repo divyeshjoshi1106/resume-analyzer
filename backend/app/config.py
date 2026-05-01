@@ -1,15 +1,18 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Base paths
 APP_DIR = os.path.dirname(__file__)
 BACKEND_DIR = os.path.abspath(os.path.join(APP_DIR, ".."))
-UPLOAD_DIR = os.path.join(BACKEND_DIR, "uploads")
+
+# Environment-based configs
+UPLOAD_DIR = os.getenv("UPLOAD_DIR", os.path.join(BACKEND_DIR, "uploads"))
+MIN_JOB_DESCRIPTION_LENGTH = int(os.getenv("MIN_JOB_DESC_LENGTH", 40))
 
 # Make sure uploads folder exists
 os.makedirs(UPLOAD_DIR, exist_ok=True)
-
-# Validation
-MIN_JOB_DESCRIPTION_LENGTH = 40
 
 # Allowed upload types
 ALLOWED_TYPES = {

@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000/analyze_resume_report";
+const API_URL = CONFIG.API_URL;
 const RESULT_KEY = "resumeAnalysisResult";
 const ERROR_KEY = "resumeAnalysisError";
 
