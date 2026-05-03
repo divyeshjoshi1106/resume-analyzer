@@ -1,4 +1,5 @@
-const API_URL = CONFIG.API_URL;
+const API_URL = CONFIG.API_BASE_URL;
+const ENDPOINT_ANALYZE = CONFIG.ENDPOINTS.ANALYZE;
 const RESULT_KEY = "resumeAnalysisResult";
 const ERROR_KEY = "resumeAnalysisError";
 
@@ -42,7 +43,7 @@ function initHomePage() {
     setLoadingState(true, loading, submitButton);
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(API_URL+ENDPOINT_ANALYZE, {
         method: "POST",
         body: formData
       });
