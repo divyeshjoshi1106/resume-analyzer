@@ -178,6 +178,10 @@ Tests include:
 - Backend structured using app/services architecture
 - Frontend uses minimal JS with modular structure
 
+## Deployment Notes
+
+The application can be deployed using Docker. Backend configuration is handled through environment variables.
+
 ## Author
 
 Divyesh Joshi
