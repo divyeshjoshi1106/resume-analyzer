@@ -28,3 +28,9 @@ CATEGORY_WEIGHTS = {
     "backend": 0.2,
     "data_ai": 0.1,
 }
+
+CORS_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", "").split(",")
+    if origin.strip()
+]

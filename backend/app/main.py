@@ -17,13 +17,13 @@ from app.services.skill_categorizer import (
 from app.services.analyzer import analyze_resume_core
 from app.services.report_builder import build_analysis_report
 from app.services.upload_handler import validate_and_save_upload
-
+from app.config import CORS_ORIGINS
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
