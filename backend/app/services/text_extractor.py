@@ -30,7 +30,3 @@ def extract_text(file_path: str) -> str:
         return extract_text_from_docx(file_path)
     else:
         raise ValueError("Unsupported file type: {ext}")
-
-
-# text = extract_text("mypdf.pdf")
-# print(text)

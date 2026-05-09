@@ -26,8 +26,6 @@ async def validate_and_save_upload(
     safe_filename = os.path.basename(file.filename)
     file_path = os.path.join(UPLOAD_DIR, safe_filename)
 
-    print(file_path)
-
     with open(file_path, "wb") as f:
         f.write(content)
 

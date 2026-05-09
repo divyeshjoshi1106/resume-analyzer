@@ -12,6 +12,10 @@ The system goes beyond simple keyword matching by introducing:
 
 This project demonstrates how structured backend systems can simulate intelligent resume screening workflows.
 
+## Live Demo
+
+[Open Live Frontend](https://resume-analyzer-1-idsu.onrender.com)
+
 ---
 
 ## Key Features
@@ -178,9 +182,10 @@ Tests include:
 - Backend structured using app/services architecture
 - Frontend uses minimal JS with modular structure
 
-## Deployment Notes
+## Deployment
 
-The application can be deployed using Docker. Backend configuration is handled through environment variables.
+The application is deployed on Render.  
+The frontend is hosted as a static site and the backend runs as a Dockerized FastAPI service.
 
 ## Author
 

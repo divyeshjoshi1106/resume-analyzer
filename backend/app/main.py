@@ -177,7 +177,7 @@ async def analyze_resume_clean(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        print(e)
+        print(f"Unexpected error during resume analysis: {e}")
         raise HTTPException(
             status_code=500, detail="An unexpected error occurred during analysis."
         )
@@ -207,7 +207,7 @@ async def analyze_resume_report(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        print(e)
+        print(f"Unexpected error during resume analysis: {e}")
         raise HTTPException(
             status_code=500, detail="An unexpected error occurred during analysis."
         )
